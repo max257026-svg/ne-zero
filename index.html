@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NE Zero · 组件</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg-2:#121212;
+  --bg-3:#1a1a1a;
+  --bg-4:#242424;
+  --line:#242424;
+  --line-2:#2e2e2e;
+  --ink:#e8e8e8;
+  --ink-2:#9a9a9a;
+  --ink-3:#5a5a5a;
+  --red:#ff2d2d;
+  --red-dim:#b91c1c;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{min-height:100vh}
+::selection{background:var(--red);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--bg-4);border-radius:5px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+::-webkit-scrollbar-track{background:transparent}
+:focus-visible{outline:1px solid var(--red);outline-offset:2px}
+a{color:inherit}
+
+/* ===== 顶部 ===== */
+.top{
+  height:48px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;padding:0 24px;gap:12px;
+}
+.top h1{font-size:14px;font-weight:600;letter-spacing:.02em}
+.top h1 span{color:var(--red)}
+.top .dot{width:6px;height:6px;background:var(--red);border-radius:50%}
+.top .meta{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* ===== 布局 ===== */
+.layout{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 48px)}
+.side{border-right:1px solid var(--line);background:var(--bg-2);padding:20px 0}
+.side h6{
+  font-size:11px;font-weight:500;letter-spacing:.06em;
+  color:var(--ink-3);padding:0 20px;margin:16px 0 4px;
+}
+.side h6:first-child{margin-top:0}
+.side a{
+  display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);
+  text-decoration:none;border-left:2px solid transparent;
+}
+.side a:hover{color:var(--ink);background:var(--bg-3)}
+.side a.active{color:var(--red);border-left-color:var(--red);background:var(--bg-3)}
+
+/* ===== 主区 ===== */
+.main{padding:40px 48px 88px;max-width:1040px}
+.head{margin-bottom:44px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.head .lab{font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:.08em;margin-bottom:8px}
+.head h2{font-size:28px;font-weight:600;letter-spacing:-.01em}
+.head h2 em{color:var(--red);font-style:normal}
+.head p{margin-top:6px;color:var(--ink-2);max-width:520px}
+
+.sec{margin-bottom:48px;scroll-margin-top:72px}
+.sec-head{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+  padding-bottom:10px;border-bottom:1px solid var(--line);
+}
+.sec-n{
+  font-family:var(--mono);font-size:11px;color:var(--red);
+  border:1px solid var(--line-2);padding:1px 7px;
+}
+.sec-t{font-size:13px;font-weight:600;letter-spacing:.04em}
+.sec-m{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+
+.box{background:var(--bg-2);border:1px solid var(--line);padding:24px}
+.box.tight{padding:0}
+
+/* ===== 按钮 ===== */
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{
+  font-family:var(--font);font-size:13px;font-weight:500;
+  height:36px;padding:0 16px;cursor:pointer;
+  background:transparent;border:1px solid var(--line-2);color:var(--ink);
+  transition:border-color .15s,color .15s,background .15s;
+}
+.btn:hover{border-color:var(--red);color:var(--red)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red-dim);border-color:var(--red-dim);color:#fff}
+.btn.solid{background:var(--bg-4);border-color:var(--bg-4);color:var(--ink)}
+.btn.solid:hover{border-color:var(--red);color:var(--red);background:transparent}
+.btn.ghost{border-color:transparent;color:var(--ink-2)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--line-2)}
+.btn.sm{height:28px;padding:0 12px;font-size:12px}
+.btn.lg{height:44px;padding:0 22px}
+.btn.icon{width:36px;padding:0;display:inline-grid;place-items:center}
+
+/* ===== 输入 ===== */
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{
+  display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  color:var(--ink-3);margin-bottom:6px;
+}
+.input{
+  width:100%;height:36px;padding:0 12px;
+  background:var(--bg-3);border:1px solid var(--line-2);color:var(--ink);
+  font-family:var(--font);font-size:13px;
+  transition:border-color .15s;
+}
+.input::placeholder{color:var(--ink-3)}
+.input:focus{outline:none;border-color:var(--red)}
+
+/* ===== 滑条 ===== */
+.sl-row{margin-bottom:22px}
+.sl-row:last-child{margin-bottom:0}
+.sl-h{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+.sl-h b{font-family:var(--mono);font-weight:500;color:var(--ink-2);font-size:12px}
+.sl{position:relative;height:20px;cursor:pointer}
+.sl-tk{position:absolute;top:9px;left:0;right:0;height:3px;background:var(--bg-4)}
+.sl-fl{position:absolute;left:0;top:0;height:100%;background:var(--red)}
+.sl-th{
+  position:absolute;top:10.5px;width:12px;height:12px;
+  background:#fff;border:1px solid var(--line-2);
+  transform:translate(-50%,-50%);cursor:grab;
+}
+.sl.dragging .sl-th{cursor:grabbing}
+.sl-ticks{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+
+/* ===== 开关 ===== */
+.sw-row{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 0;border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.sw-row:last-child{border-bottom:none}
+.sw-row > span:first-child{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sw-row .l{font-size:13px;color:var(--ink)}
+.sw-row .s{font-size:10px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.06em}
+.toggle{
+  width:30px;height:30px;
+  background:var(--bg-4);
+  border-radius:0;
+  position:relative;cursor:pointer;flex-shrink:0;
+  transition:background .15s;
+}
+.toggle input{position:absolute;opacity:0;width:0;height:0}
+.toggle::after{
+  content:'';position:absolute;top:4px;left:4px;
+  width:14px;height:14px;
+  background:#fff;border-radius:0;
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  transition:left .15s,top .15s;
+}
+.toggle:has(input:checked){background:var(--red)}
+.toggle:has(input:checked)::after{left:12px;top:12px}
+
+/* ===== 标签 ===== */
+.box .tag{margin:4px 6px 4px 0}
+.tag{
+  display:inline-flex;align-items:center;padding:3px 10px;
+  font-size:12px;background:var(--bg-3);border:1px solid var(--line-2);
+  color:var(--ink-2);transition:border-color .15s,color .15s;
+}
+.tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ink-3);margin-right:6px}
+.tag:hover{border-color:var(--ink-3)}
+.tag.red{background:transparent;border-color:var(--red);color:var(--red)}
+.tag.red::before{background:var(--red)}
+.tag.outline{border-color:var(--line-2);color:var(--ink);background:transparent}
+.tag.outline::before{background:var(--red)}
+
+/* ===== 徽章 ===== */
+.badge{
+  display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  padding:2px 7px;margin:2px 4px 2px 0;background:var(--bg-3);
+  border:1px solid var(--line-2);color:var(--ink-2);
+}
+.badge.red{background:var(--red);border-color:var(--red);color:#fff}
+.badge.line{border-color:var(--red);color:var(--red);background:transparent}
+.badge.live{background:transparent;border-color:var(--red);color:var(--red)}
+.badge.live::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--red);margin-right:5px}
+
+/* ===== 进度 ===== */
+.prog{margin-bottom:18px}
+.prog:last-child{margin-bottom:0}
+.prog-h{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.prog-h b{font-family:var(--mono);font-weight:500;color:var(--ink-2);font-size:12px}
+.prog-bar{height:4px;background:var(--bg-4);overflow:hidden}
+.prog-fl{height:100%;background:var(--red)}
+
+/* ===== 状态 ===== */
+.st{display:inline-flex;align-items:center;font-size:13px;color:var(--ink-2)}
+.st-d{width:7px;height:7px;border-radius:50%;margin-right:8px}
+.st-d.live{background:var(--red)}
+.st-d.ok{background:#22c55e}
+.st-d.warn{background:#f59e0b}
+.st-d.off{background:var(--ink-3)}
+
+/* ===== 头像 ===== */
+.av{
+  width:36px;height:36px;border-radius:8px;background:var(--bg-3);
+  border:1px solid var(--line-2);display:inline-grid;place-items:center;
+  font-size:13px;color:var(--ink-2);
+}
+.av.red{background:var(--red);color:#fff;border-color:var(--red)}
+.av.lg{width:48px;height:48px;font-size:15px}
+.av.sm{width:28px;height:28px;font-size:11px}
+.avs{display:flex}
+.avs .av{margin-left:-8px;border:2px solid var(--bg-2)}
+.avs .av:first-child{margin-left:0}
+
+/* ===== 标签页 ===== */
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tab{
+  padding:8px 14px;font-size:13px;color:var(--ink-2);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--red);border-bottom-color:var(--red)}
+
+/* ===== 表格 ===== */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{
+  text-align:left;padding:12px;font-family:var(--mono);font-size:10px;
+  font-weight:500;letter-spacing:.06em;color:var(--ink-3);
+  border-bottom:1px solid var(--line);
+}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b{color:var(--ink);font-weight:500;font-family:var(--mono);font-size:12px}
+
+/* ===== 色板 ===== */
+.swatch{padding:20px 12px 12px;border:1px solid var(--line);position:relative}
+.swatch::before{content:'';position:absolute;top:10px;right:10px;width:6px;height:6px;border-radius:50%;background:currentColor}
+.swatch .nm{font-family:var(--mono);font-size:10px;color:#fff;letter-spacing:.04em}
+.swatch .hx{font-family:var(--mono);font-size:9px;opacity:.6;margin-top:3px;color:#fff}
+
+/* ===== 底栏 ===== */
+.footer{
+  border-top:1px solid var(--line);padding:24px 48px;
+  display:flex;align-items:center;gap:16px;font-size:11px;color:var(--ink-3);
+  font-family:var(--mono);letter-spacing:.04em;
+}
+.footer a{color:var(--ink-3);text-decoration:none}
+.footer a:hover{color:var(--ink)}
+.footer .spacer{flex:1}
+.footer .brand{font-weight:600;color:var(--ink);font-family:var(--font)}
+.footer .brand span{color:var(--red)}
+
+/* ===== 主题切换 ===== */
+.theme-fab{
+  position:fixed;bottom:24px;right:24px;z-index:50;
+  width:40px;height:40px;background:var(--bg-2);border:1px solid var(--line-2);
+  color:var(--red);display:grid;place-items:center;cursor:pointer;
+  font-family:var(--mono);font-size:12px;border-radius:6px;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.theme-fab:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .side{display:none}
+  .main{padding:24px}
+  .g2,.g3,.g6{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>NE <span>ZERO</span></h1>
+  <div class="dot"></div>
+  <div class="meta">组件库 · v1.0</div>
+</div>
+
+<div class="layout">
+  <aside class="side">
+    <h6>基础</h6>
+    <a href="#btn" class="active">按钮</a>
+    <a href="#in">输入框</a>
+    <a href="#sl">滑条</a>
+    <a href="#sw">开关</a>
+    <a href="#ch">标签</a>
+    <h6>展示</h6>
+    <a href="#pg">进度</a>
+    <a href="#st">状态</a>
+    <a href="#av">头像</a>
+    <a href="#bd">徽章</a>
+    <h6>导航</h6>
+    <a href="#tb">标签页</a>
+    <a href="#tbl">表格</a>
+    <h6>系统</h6>
+    <a href="#col">色板</a>
+  </aside>
+
+  <main class="main">
+
+    <div class="head">
+      <div class="lab">NE ZERO / COMPONENTS</div>
+      <h2>组件<em>·</em>清单</h2>
+      <p>页面只列组件,每一条线、每一种状态只服务一种功能。</p>
+    </div>
+
+    <!-- 按钮 -->
+    <section class="sec" id="btn">
+      <div class="sec-head">
+        <div class="sec-n">01</div>
+        <div class="sec-t">按钮 / BUTTON</div>
+        <div class="sec-m">04 VARIANTS</div>
+      </div>
+      <div class="g2">
+        <div class="box">
+          <div class="btn-row">
+            <button class="btn">默认</button>
+            <button class="btn primary">主要</button>
+            <button class="btn solid">实心</button>
+            <button class="btn ghost">幽灵</button>
+          </div>
+        </div>
+        <div class="box">
+          <div class="btn-row">
+            <button class="btn sm">小</button>
+            <button class="btn">中</button>
+            <button class="btn lg">大</button>
+            <button class="btn icon">+</button>
+            <button class="btn icon">→</button>
+            <button class="btn icon primary">★</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 输入 -->
+    <section class="sec" id="in">
+      <div class="sec-head">
+        <div class="sec-n">02</div>
+        <div class="sec-t">输入框 / INPUT</div>
+        <div class="sec-m">03 TYPES</div>
+      </div>
+      <div class="box">
+        <div class="g3">
+          <div class="field">
+            <label>账户</label>
+            <input class="input" placeholder="输入账户">
+          </div>
+          <div class="field">
+            <label>密码</label>
+            <input class="input" type="password" value="········">
+          </div>
+          <div class="field">
+            <label>邮箱</label>
+            <input class="input" value="newera@studio.cn">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 滑条 -->
+    <section class="sec" id="sl">
+      <div class="sec-head">
+        <div class="sec-n">03</div>
+        <div class="sec-t">滑条 / SLIDER</div>
+        <div class="sec-m">RANGE · STEP</div>
+      </div>
+      <div class="g2">
+        <div class="box">
+          <div class="sl-row">
+            <div class="sl-h"><span>不透明度</span><b>75%</b></div>
+            <div class="sl" data-unit="%">
+              <div class="sl-tk"><div class="sl-fl" style="width:75%"></div></div>
+              <div class="sl-th" style="left:75%"></div>
+            </div>
+          </div>
+          <div class="sl-row">
+            <div class="sl-h"><span>圆角</span><b>0 PX</b></div>
+            <div class="sl" data-fmt="px" data-min="0" data-max="40" data-step="1">
+              <div class="sl-tk"><div class="sl-fl" style="width:0%"></div></div>
+              <div class="sl-th" style="left:0%"></div>
+            </div>
+          </div>
+          <div class="sl-row">
+            <div class="sl-h"><span>间距</span><b>24 PX</b></div>
+            <div class="sl" data-fmt="px" data-min="0" data-max="40" data-step="1">
+              <div class="sl-tk"><div class="sl-fl" style="width:60%"></div></div>
+              <div class="sl-th" style="left:60%"></div>
+            </div>
+            <div class="sl-ticks"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="sl-row">
+            <div class="sl-h"><span>字号</span><b>14 PX</b></div>
+            <div class="sl" data-fmt="px" data-min="10" data-max="32" data-step="2">
+              <div class="sl-tk"><div class="sl-fl" style="width:35%"></div></div>
+              <div class="sl-th" style="left:35%"></div>
+            </div>
+            <div class="sl-ticks"><span>10</span><span>14</span><span>18</span><span>24</span><span>32</span></div>
+          </div>
+          <div class="sl-row">
+            <div class="sl-h"><span>饱和度</span><b>100%</b></div>
+            <div class="sl" data-unit="%">
+              <div class="sl-tk"><div class="sl-fl" style="width:100%"></div></div>
+              <div class="sl-th" style="left:100%"></div>
+            </div>
+          </div>
+          <div class="sl-row">
+            <div class="sl-h"><span>亮度</span><b>50%</b></div>
+            <div class="sl" data-unit="%">
+              <div class="sl-tk"><div class="sl-fl" style="width:50%"></div></div>
+              <div class="sl-th" style="left:50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 开关 -->
+    <section class="sec" id="sw">
+      <div class="sec-head">
+        <div class="sec-n">04</div>
+        <div class="sec-t">开关 / SWITCH</div>
+        <div class="sec-m">FORM · TOGGLE</div>
+      </div>
+      <div class="box">
+        <div class="g2">
+          <div>
+            <label class="sw-row">
+              <span><span class="l">启用通知</span><span class="s">推送系统消息</span></span>
+              <span class="toggle"><input type="checkbox" checked></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">深色模式</span><span class="s">DARK MODE</span></span>
+              <span class="toggle"><input type="checkbox"></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">数据同步</span><span class="s">CLOUD SYNC</span></span>
+              <span class="toggle"><input type="checkbox" checked></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">声音提醒</span><span class="s">AUDIO ALERT</span></span>
+              <span class="toggle"><input type="checkbox"></span>
+            </label>
+          </div>
+          <div>
+            <label class="sw-row">
+              <span><span class="l">自动保存</span><span class="s">AUTO SAVE</span></span>
+              <span class="toggle"><input type="checkbox" checked></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">显示网格</span><span class="s">GRID VISIBLE</span></span>
+              <span class="toggle"><input type="checkbox" checked></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">对齐辅助线</span><span class="s">GUIDE LINE</span></span>
+              <span class="toggle"><input type="checkbox"></span>
+            </label>
+            <label class="sw-row">
+              <span><span class="l">实时协作</span><span class="s">COLLAB MODE</span></span>
+              <span class="toggle"><input type="checkbox" checked></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 标签 -->
+    <section class="sec" id="ch">
+      <div class="sec-head">
+        <div class="sec-n">05</div>
+        <div class="sec-t">标签 / TAG</div>
+        <div class="sec-m">03 VARIANTS</div>
+      </div>
+      <div class="box">
+        <span class="tag">默认</span>
+        <span class="tag red">主题</span>
+        <span class="tag outline">描边</span>
+        <span class="tag">设计</span>
+        <span class="tag red">2026</span>
+        <span class="tag outline">东方</span>
+        <span class="tag">组件</span>
+        <span class="tag red">已发布</span>
+        <span class="tag outline">Beta</span>
+        <span class="tag">红色</span>
+      </div>
+    </section>
+
+    <!-- 进度 -->
+    <section class="sec" id="pg">
+      <div class="sec-head">
+        <div class="sec-n">06</div>
+        <div class="sec-t">进度 / PROGRESS</div>
+        <div class="sec-m">LINEAR</div>
+      </div>
+      <div class="g2">
+        <div class="box">
+          <div class="prog">
+            <div class="prog-h"><span>设计完成</span><b>75%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:75%"></div></div>
+          </div>
+          <div class="prog">
+            <div class="prog-h"><span>代码实现</span><b>42%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:42%"></div></div>
+          </div>
+          <div class="prog">
+            <div class="prog-h"><span>用户测试</span><b>12%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:12%"></div></div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="prog">
+            <div class="prog-h"><span>组件库</span><b>100%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:100%"></div></div>
+          </div>
+          <div class="prog">
+            <div class="prog-h"><span>设计稿</span><b>88%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:88%"></div></div>
+          </div>
+          <div class="prog">
+            <div class="prog-h"><span>无障碍审计</span><b>56%</b></div>
+            <div class="prog-bar"><div class="prog-fl" style="width:56%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 状态 -->
+    <section class="sec" id="st">
+      <div class="sec-head">
+        <div class="sec-n">07</div>
+        <div class="sec-t">状态 / STATUS</div>
+        <div class="sec-m">INDICATOR</div>
+      </div>
+      <div class="box">
+        <div class="g2">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="st"><span class="st-d live"></span>实时运行 · LIVE</div>
+            <div class="st"><span class="st-d ok"></span>运行正常 · OK</div>
+            <div class="st"><span class="st-d warn"></span>需要关注 · WARN</div>
+            <div class="st"><span class="st-d off"></span>已停用 · OFF</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:12px">
+            <div class="st"><span class="st-d live"></span>MAIN · 23ms</div>
+            <div class="st"><span class="st-d ok"></span>DB · QPS 1.2k</div>
+            <div class="st"><span class="st-d warn"></span>CACHE · 78%</div>
+            <div class="st"><span class="st-d off"></span>QUEUE · IDLE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 头像 -->
+    <section class="sec" id="av">
+      <div class="sec-head">
+        <div class="sec-n">08</div>
+        <div class="sec-t">头像 / AVATAR</div>
+        <div class="sec-m">03 SIZES</div>
+      </div>
+      <div class="box">
+        <div style="display:flex;gap:28px;align-items:center">
+          <div class="avs">
+            <div class="av red">启</div>
+            <div class="av">年</div>
+            <div class="av">设</div>
+            <div class="av sm">+5</div>
+          </div>
+          <div class="avs">
+            <div class="av lg red">A</div>
+            <div class="av lg">B</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 徽章 -->
+    <section class="sec" id="bd">
+      <div class="sec-head">
+        <div class="sec-n">09</div>
+        <div class="sec-t">徽章 / BADGE</div>
+        <div class="sec-m">04 VARIANTS</div>
+      </div>
+      <div class="box">
+        <span class="badge">NEW</span>
+        <span class="badge red">v1.0</span>
+        <span class="badge line">DRAFT</span>
+        <span class="badge live">LIVE</span>
+        <span class="badge">42</span>
+        <span class="badge line">ARCHIVE</span>
+        <span class="badge red">HOT</span>
+      </div>
+    </section>
+
+    <!-- 标签页 -->
+    <section class="sec" id="tb">
+      <div class="sec-head">
+        <div class="sec-n">10</div>
+        <div class="sec-t">标签页 / TABS</div>
+        <div class="sec-m">NAVIGATION</div>
+      </div>
+      <div class="box">
+        <div class="tabs">
+          <div class="tab on" onclick="selTab(this)">概览</div>
+          <div class="tab" onclick="selTab(this)">数据</div>
+          <div class="tab" onclick="selTab(this)">配置</div>
+          <div class="tab" onclick="selTab(this)">日志</div>
+        </div>
+        <div style="font-size:12px;color:var(--ink-2)">
+          当前页 · <b style="color:var(--red)">概览</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- 表格 -->
+    <section class="sec" id="tbl">
+      <div class="sec-head">
+        <div class="sec-n">11</div>
+        <div class="sec-t">表格 / TABLE</div>
+        <div class="sec-m">DATA</div>
+      </div>
+      <div class="box tight">
+        <table class="tbl">
+          <thead>
+            <tr><th>名称</th><th>类型</th><th>状态</th><th>更新时间</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>theme.palette</b></td>
+              <td>color</td>
+              <td><span class="st"><span class="st-d ok"></span>已发布</span></td>
+              <td style="color:var(--ink-3);font-family:var(--mono);font-size:11px">2026-09-30</td>
+            </tr>
+            <tr>
+              <td><b>btn.primary</b></td>
+              <td>component</td>
+              <td><span class="st"><span class="st-d live"></span>活跃</span></td>
+              <td style="color:var(--ink-3);font-family:var(--mono);font-size:11px">2026-09-28</td>
+            </tr>
+            <tr>
+              <td><b>input.line</b></td>
+              <td>component</td>
+              <td><span class="st"><span class="st-d warn"></span>审核中</span></td>
+              <td style="color:var(--ink-3);font-family:var(--mono);font-size:11px">2026-09-25</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 色板 -->
+    <section class="sec" id="col">
+      <div class="sec-head">
+        <div class="sec-n">12</div>
+        <div class="sec-t">色板 / COLOR</div>
+        <div class="sec-m">06 TOKENS</div>
+      </div>
+      <div class="g6">
+        <div class="swatch" style="background:#ff2d2d;color:#ff2d2d"><div class="nm">PRIMARY</div><div class="hx">#FF2D2D</div></div>
+        <div class="swatch" style="background:#ff5757;color:#ff5757"><div class="nm">BRIGHT</div><div class="hx">#FF5757</div></div>
+        <div class="swatch" style="background:#c8102e;color:#c8102e"><div class="nm">DEEP</div><div class="hx">#C8102E</div></div>
+        <div class="swatch" style="background:#a31020;color:#a31020"><div class="nm">DIM</div><div class="hx">#A31020</div></div>
+        <div class="swatch" style="background:#1a1a1a;color:#9a9a9a"><div class="nm">BG-3</div><div class="hx">#1A1A1A</div></div>
+        <div class="swatch" style="background:#e8e8e8;color:#9a9a9a"><div class="nm" style="color:#0a0a0a">INK</div><div class="hx" style="color:#0a0a0a">#E8E8E8</div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <span class="brand">NE <span>ZERO</span></span>
+  <a href="#">设计系统</a>
+  <a href="#">组件库</a>
+  <a href="#">更新日志</a>
+  <div class="spacer"></div>
+  <span>新启年工作室出品</span>
+</footer>
+
+<button class="theme-fab" onclick="rotate()" id="fab">D</button>
+
+<script>
+function selTab(el){
+  el.parentNode.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// 滑条
+document.querySelectorAll('.sl').forEach(sl=>{
+  const tk = sl.querySelector('.sl-tk');
+  const fl = sl.querySelector('.sl-fl');
+  const th = sl.querySelector('.sl-th');
+  const head = sl.parentNode.querySelector('.sl-h b');
+  const min = parseFloat(sl.dataset.min || 0);
+  const max = parseFloat(sl.dataset.max || 100);
+  const unit = sl.dataset.unit || '%';
+  const step = parseFloat(sl.dataset.step || 1);
+  const fmt = sl.dataset.fmt;
+
+  function setVal(pct){
+    pct = Math.max(0, Math.min(100, pct));
+    let label = '';
+    if(fmt === 'px'){
+      const v = Math.round(min + (max - min) * pct / 100 / step) * step;
+      label = v + ' PX';
+    } else {
+      label = Math.round(pct) + unit;
+    }
+    fl.style.width = pct + '%';
+    th.style.left = pct + '%';
+    if(head) head.textContent = label;
+  }
+
+  if(head){
+    const txt = head.textContent.trim();
+    let initial = 0;
+    if(fmt === 'px'){
+      const m = txt.match(/(-?\d+)/);
+      initial = m ? +m[1] : 0;
+      setVal((initial - min) / (max - min) * 100);
+    } else {
+      const m = txt.match(/(-?\d+)/);
+      initial = m ? +m[1] : 0;
+      setVal(initial);
+    }
+  }
+
+  let dragging = false;
+  function move(e){
+    if(!dragging) return;
+    const rect = tk.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    setVal(x / rect.width * 100);
+  }
+  function start(e){
+    dragging = true;
+    sl.classList.add('dragging');
+    move(e);
+    e.preventDefault();
+  }
+  function end(){
+    dragging = false;
+    sl.classList.remove('dragging');
+  }
+  sl.addEventListener('mousedown', start);
+  sl.addEventListener('touchstart', start, {passive:false});
+  window.addEventListener('mousemove', move);
+  window.addEventListener('touchmove', move);
+  window.addEventListener('mouseup', end);
+  window.addEventListener('touchend', end);
+});
+
+// 主题切换 D / L / A
+let cur = 0;
+const themes = ['D','L','A'];
+const fab = document.getElementById('fab');
+function applyTheme(light){
+  const root = document.documentElement;
+  if(light){
+    root.style.setProperty('--bg','#fafafa');
+    root.style.setProperty('--bg-2','#f2f2f2');
+    root.style.setProperty('--bg-3','#eaeaea');
+    root.style.setProperty('--bg-4','#dddddd');
+    root.style.setProperty('--line','#e4e4e4');
+    root.style.setProperty('--line-2','#cfcfcf');
+    root.style.setProperty('--ink','#0a0a0a');
+    root.style.setProperty('--ink-2','#555');
+    root.style.setProperty('--ink-3','#999');
+    root.style.setProperty('--red','#c8102e');
+  } else {
+    root.style.setProperty('--bg','#0a0a0a');
+    root.style.setProperty('--bg-2','#121212');
+    root.style.setProperty('--bg-3','#1a1a1a');
+    root.style.setProperty('--bg-4','#242424');
+    root.style.setProperty('--line','#242424');
+    root.style.setProperty('--line-2','#2e2e2e');
+    root.style.setProperty('--ink','#e8e8e8');
+    root.style.setProperty('--ink-2','#9a9a9a');
+    root.style.setProperty('--ink-3','#5a5a5a');
+    root.style.setProperty('--red','#ff2d2d');
+  }
+}
+function rotate(){
+  cur = (cur+1)%3;
+  fab.textContent = themes[cur];
+  if(cur === 1) applyTheme(true);
+  else if(cur === 2) applyTheme(window.matchMedia('(prefers-color-scheme: light)').matches);
+  else applyTheme(false);
+}
+
+// 侧栏高亮
+const links = document.querySelectorAll('.side a');
+const secs = document.querySelectorAll('.sec');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{ if(window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href') === '#'+cur) a.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
